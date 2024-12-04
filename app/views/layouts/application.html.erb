@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Application</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'https://code.jquery.com/jquery-3.5.1.slim.min.js' %>
+  <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js' %>
+  <%= javascript_include_tag 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js' %>
+  <%= stylesheet_link_tag 'css', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <style>
+   
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav mr-auto">
+      <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="/Products/index">Products</a>
+      <a class="nav-item nav-link" href="/Categories/index">Categories</a>
+      <a class="nav-item nav-link" href="/admin">Admin</a>
+      <a class="nav-item nav-link" href="/view_cart">Cart</a>
+      <a class="nav-item nav-link" href="/Contact">Contact</a>
+      <a class="nav-item nav-link" href="/account">Account</a>
+      <% if customer_signed_in? %>
+        <li><%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "nav-item nav-link" %></li>
+      <% end %>
+    </div>
+    <form class="form-inline my-2 my-lg-0" action='/Search/result' method='get'>
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name='search'>
+      <select class="custom-select mr-sm-2" name='category'>
+        <option selected value='all'>All Categories</option>
+        <% Category.all.each do |category| %>
+          <option value="<%= category.id %>"><%= category.name %></option>
+        <% end %>
+      </select>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+  <%= yield %>
+</body>
+</html>

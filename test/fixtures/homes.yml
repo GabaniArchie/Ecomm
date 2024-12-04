@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  heading: MyString
+  moto: MyText
+  message_one_heading: MyString
+  message_one: MyText
+  message_two_heading: MyString
+  message_two: MyText
+
+two:
+  heading: MyString
+  moto: MyText
+  message_one_heading: MyString
+  message_one: MyText
+  message_two_heading: MyString
+  message_two: MyText

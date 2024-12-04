@@ -1,0 +1,120 @@
+/* application.css */
+
+/* Apply light pink background to the entire page */
+body {
+    background-color: #f8d7da; /* Light pink background */
+    color: #000; /* Black text */
+}
+
+/* Pagination styling */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination li {
+    list-style: none;
+    margin: 0 3px;
+}
+
+.pagination a, .pagination span {
+    text-decoration: none;
+    display: inline-block;
+    padding: 6px 12px; 
+    background-color: #f8d7da; /* Light pink */
+    color: #000; /* Black text */
+    border: 1px solid #ccc; /* Light border for separation */
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.pagination a:hover, .pagination span:hover {
+    background-color: #e9c2c2; /* Darker pink on hover */
+    border-color: #ccc;
+}
+
+.pagination .active a, .pagination .active span {
+    background-color: #e9c2c2; /* Active page with darker pink */
+    color: #000;
+    border-color: #ccc;
+}
+
+.pagination .disabled a, .pagination .disabled span {
+    color: #aaa; /* Disabled pagination links */
+    background-color: #f8d7da;
+    pointer-events: none;
+}
+
+/* Button Styling */
+.btn-outline-primary {
+    background-color: #f8d7da; /* Light pink background */
+    color: #000;
+    border: 1px solid #ccc;
+    font-weight: bold;
+}
+
+.btn-outline-primary:hover {
+    background-color: #e9c2c2; /* Darker pink on hover */
+    color: #000;
+}
+
+/* Dropdown */
+.custom-select {
+    background-color: #f8d7da;
+    color: #000;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.custom-select:hover {
+    background-color: #e9c2c2;
+}
+
+/* Product Cards */
+.card {
+    border: none;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 16px;
+}
+
+.mt-auto {
+    margin-top: auto;
+}
+  
+  /* Apply light pink background to the search button with black text */
+  button[type="submit"], .btn-search {
+    background-color: #f8d7da !important;  /* Light pink background */
+    color: #000 !important;  /* Black text */
+    border: 1px solid #000 !important;  /* Black border */
+  }
+  
+  /* Ensure the footer has a light pink background with black text */
+  footer {
+    background-color: #f8d7da !important;  /* Light pink background */
+    color: #000 !important;  /* Black text */
+  }
+  
+  /* Ensure footer links are black and visible */
+  footer a {
+    color: #000 !important;  /* Black text for footer links */
+  }
+  
+  footer a:hover {
+    color: #555 !important;  /* Darker color for footer links when hovered */
+  }

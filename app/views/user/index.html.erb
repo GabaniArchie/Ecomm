@@ -1,0 +1,120 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card shadow">
+        <h3 class="card-header bg-primary text-white">
+          User Information
+        </h3>
+        <div class="card-body">
+          <div class="text-center">
+            <% if @user.avatar.attached? %>
+              <%= image_tag @user.avatar, class: "avatar img-fluid rounded-circle mb-3", style: "width: 100px; height: 100px;" %>
+            <% else %>
+              <img src="default_avatar.png" class="avatar img-fluid rounded-circle mb-3" style="width: 100px; height: 100px;" alt="Default Avatar">
+            <% end %>
+          </div>
+          <form>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="address" class="form-control" id="email" value=<%= @user.email %> disabled>
+            </div>
+            <div class="form-group">
+              <label for="address">Address</label>
+              <% if @user.address.nil? %>
+                <input type="string" class="form-control" id="address" value="Not added yet" disabled>
+              <% else %>
+                <input type="string" class="form-control" id="address" value="<%= @user.address %>" disabled>
+              <% end %>
+            </div>
+            <div class="form-group">
+  <label for="province">Province</label>
+  <% if @user.province_id.nil? %>
+    <input type="province" class="form-control" id="province" value="Not added yet" disabled>
+  <% else %>
+    <% province = Province.find_by(id: @user.province_id) %>
+    <% if province %>
+      <input type="province" class="form-control" id="province" value="<%= province.name %>" disabled>
+    <% else %>
+      <input type="province" class="form-control" id="province" value="Invalid province" disabled>
+    <% end %>
+  <% end %>
+</div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">
+              Edit Account
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <h1>Orders</h1>
+  <% count = 0 %>
+  <% @orders.each do |order| %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <h2 class="card-title">Sr: <%= count += 1 %></h2>
+        <p class="card-text">Email: <%= order.email %></p>
+        <p class="card-text">Address: <%= order.address %></p>
+        
+        <h3 class="card-subtitle mb-2 text-muted">Order Items:</h3>
+        <ul class="list-group">
+          <% total_price = 0 %>
+          <% @order_items[order.id].each do |item| %>
+            <li class="list-group-item"><%= item[:product].name %> - Quantity: <%= item[:quantity] %> - <%= item[:product].price * item[:quantity]%></li> <% total_price += item[:product].price * item[:quantity] %>
+          <% end %>
+        </ul>
+        <div class="invoice-total mt-3">
+            <p><strong>Subtotal:</strong> <%= number_to_currency(total_price) %></p>
+            <p><strong>GST (<%= order.gst %>%) :</strong> <%= number_to_currency(total_price *  order.gst/100) %></p>
+            <p><strong>PST (<%= order.pst %>%):</strong> <%= number_to_currency(total_price *  order.pst/100 )%></p>
+            <p><strong>HST (<%=  order.hst %>%):</strong> <%= number_to_currency(total_price *  order.hst/100)%></p>
+            <hr>
+            <p><strong>Total:</strong> <%= number_to_currency(total_price + (total_price * order.gst/100) + (total_price * order.pst/100) + (total_price * order.hst/100)) %></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Edit Account</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= form_for @user, url: update_path, method: :patch do |f| %>
+          <%= hidden_field_tag :id, @user.id %>
+          <div class="form-group">
+            <%= f.label :email %>
+            <%= f.email_field :email, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :address %>
+            <%= f.text_field :address, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :avatar %>
+            <%= f.file_field :avatar, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :province_id %>
+            <%= f.collection_select :province_id, Province.all, :id, :name, { prompt: "Select province" }, class: 'form-control' %>
+          </div>
+          <!-- Add other form fields as needed -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <%= f.submit "Save changes", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

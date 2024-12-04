@@ -1,0 +1,39 @@
+<div class="container product-container">
+  <!-- Pagination -->
+  <div class="pagination d-flex justify-content-between align-items-center mb-4">
+    <%= paginate @products, class: 'pagination' %>
+    <div>
+      <%= form_tag('', method: :get) do %>
+        <%= select_tag :filter, options_for_select([['All Products', 'all'], ['On Sale', 'on_sale'], ['New Items', 'new_items']], params[:filter]), class: 'form-control custom-select', onchange: 'this.form.submit();' %>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Products List -->
+  <div class="row">
+    <% @products.each do |product| %>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body d-flex flex-column justify-content-between Products">
+            <h5 class="card-title"><%= product.name %></h5>
+            
+            <% if product.sale %>
+              <% discounted_price = product.price * 0.7 %> <!-- Deduct 30% for sale -->
+              <p class="card-text"><strong>Price:</strong> <del><%= number_to_currency(product.price) %></del> <%= number_to_currency(discounted_price) %></p>
+              <p class="card-text">On Sale</p>
+            <% else %>
+              <p class="card-text"><strong>Price:</strong> <%= number_to_currency(product.price) %></p>
+              <p class="card-text">Not on Sale</p>
+            <% end %>
+
+            <!-- Add more product details as needed -->
+            <div class="mt-auto">
+              <a href="/Products/show?id=<%= product.id %>" class="btn btn-outline-primary btn-block">View Details</a>
+              <%= button_to "Add to Cart", add_to_cart_path(product_id: product.id), method: :post, remote: true, class: "btn btn-outline-primary btn-block", form_class: "form-inline", params: { redirect_path: view_cart_path } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

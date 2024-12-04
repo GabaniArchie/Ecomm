@@ -1,0 +1,52 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+button {
+  color: white !important;
+}
+
+.jumbotron {
+  background-color: #343a40;
+  color: #fff;
+  padding: 80px 20px;
+  margin-bottom: 0;
+}
+
+.jumbotron h1 {
+  font-size: 48px;
+}
+
+.card {
+  background-color: #f8f9fa;
+  border: none;
+  border-radius: 10px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width:100%;
+}
+
+.container{
+  margin-top:100px;
+}
+
+.product-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.Products button {
+    width: 100%;
+    margin: auto;
+}
+
+a{
+  color: black !important;
+  text-decoration: none !important;
+}

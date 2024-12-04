@@ -1,0 +1,15 @@
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Contact Information</h1>
+
+  <div class="card" style="background-color: #f8d7da; color: #000;">
+    <div class="card-body">
+      <% if @contact.present? %>
+        <h5 class="card-title">Email: <%= @contact.email %></h5>
+        <p class="card-text"><strong>Phone:</strong> <%= @contact.phone %></p>
+      <% else %>
+        <h5 class="card-title">Contact Information Not Available</h5>
+        <p class="card-text">No contact details found.</p>
+      <% end %>
+    </div>
+  </div>
+</div>
